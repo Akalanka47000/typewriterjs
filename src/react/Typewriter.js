@@ -37,10 +37,11 @@ class Typewriter extends Component {
   }
 
   render() {
-    const { component: Component, className } = this.props;
+    const { component: Component, id, className } = this.props;
 
     return (
       <Component
+        id={id}
         ref={(ref) => this.typewriter = ref}
         className={`Typewriter ${className}`}
         data-testid='typewriter-wrapper'
@@ -50,6 +51,7 @@ class Typewriter extends Component {
 }
 
 Typewriter.propTypes = {
+  id: PropTypes.string,
   className: PropTypes.string,
   component: PropTypes.element,
   onInit: PropTypes.func,

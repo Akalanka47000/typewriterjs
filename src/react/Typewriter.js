@@ -15,15 +15,15 @@ class Typewriter extends Component {
       instance,
     }, () => {
       const { onInit } = this.props;
-      
-      if(onInit) {
+
+      if (onInit) {
         onInit(instance);
       }
     });
   }
 
   componentDidUpdate(prevProps) {
-    if(!isEqual(this.props.options, prevProps.options)) {
+    if (!isEqual(this.props.options, prevProps.options)) {
       this.setState({
         instance: new TypewriterCore(this.typewriter, this.props.options)
       });
@@ -31,18 +31,18 @@ class Typewriter extends Component {
   }
 
   componentWillUnmount() {
-    if(this.state.instance) {
+    if (this.state.instance) {
       this.state.instance.stop();
     }
   }
 
   render() {
-    const { component: Component } = this.props; 
-    
+    const { component: Component, className } = this.props;
+
     return (
       <Component
         ref={(ref) => this.typewriter = ref}
-        className='Typewriter'
+        className={`Typewriter ${className}`}
         data-testid='typewriter-wrapper'
       />
     );
@@ -50,6 +50,7 @@ class Typewriter extends Component {
 }
 
 Typewriter.propTypes = {
+  className: PropTypes.string,
   component: PropTypes.element,
   onInit: PropTypes.func,
   options: PropTypes.objectOf(PropTypes.shape({
@@ -65,7 +66,8 @@ Typewriter.propTypes = {
 };
 
 Typewriter.defaultProps = {
-  component: 'div'
+  component: 'div',
+  className: '',
 }
 
 export default Typewriter;
